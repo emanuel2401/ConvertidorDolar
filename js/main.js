@@ -1,9 +1,7 @@
+const loading = document.getElementById('loading')
 function convertirDolar() {
     const cantidad = document.getElementById('cantidad').value;
     const url = "https://dolarapi.com/v1/dolares/blue"
-
-    
-
     if (cantidad !== "") {
         fetch(url)
     .then(response => {
@@ -14,12 +12,17 @@ function convertirDolar() {
         return response.json()
     })
     .then(data => {
-        const valorDolarBlueVenta = data.venta;
-        const valorDolarBlueCompra = data.compra;
-        const resultadoVenta = cantidad * valorDolarBlueVenta;
-        const resultadoCompra = cantidad * valorDolarBlueCompra
-        document.getElementById('resultado').value = resultadoVenta.toFixed(2);
-        document.getElementById('resultadoCompra').value = resultadoCompra.toFixed(2);
+        loading.classList = "show"
+        setTimeout(() => {
+            loading.classList = "hidden"
+            const valorDolarBlueVenta = data.venta;
+            const valorDolarBlueCompra = data.compra;
+            const resultadoVenta = cantidad * valorDolarBlueVenta;
+            const resultadoCompra = cantidad * valorDolarBlueCompra
+            document.getElementById('resultado').value = resultadoVenta.toFixed(2);
+            document.getElementById('resultadoCompra').value = resultadoCompra.toFixed(2);
+        }, 2000);
+
     })
     .catch(error => console.error('Error al obtener datos:', error));
     } else {
